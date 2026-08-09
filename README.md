@@ -60,7 +60,7 @@ PETALS scales both technically and organizationally.
 
 # Tutorial
 
-## Project Setup
+## 1: Project Setup
 
 Install Elixir
 ```bash
@@ -135,3 +135,91 @@ Here are some addtional packages I recommend:
 - [`ash_ai`](https://hex.pm/packages/ash_ai): A framework extension that brings LLM capabilities to Ash, supporting prompt-backed actions, vector embeddings, and Model Context Protocol (MCP) integrations.
 - [`live_debugger`](https://hex.pm/packages/live_debugger): A browser-based development tool for inspecting component trees, viewing assigns, and tracing callback executions in Phoenix LiveView applications.
 - [`tidewave`](https://hex.pm/packages/tidewave): An AI development toolkit by Dashbit that integrates runtime introspection, browser automation, and point-and-click UI tracing directly into Phoenix.
+
+## 2: Intro to LiveView
+
+In traditional Model-View-Controller architecture: HTTP requests are made to the server, HTML is rendered server-side, and returned without state.
+
+In Phoenix LiveView: the initial HTTP request renders a static page quickly, then creates a WebSocket connection to update the client with the state on the server.
+
+We'll make  a simple counter example.
+
+First we need ot add the LiveView to the router.
+
+```elixir
+scope "/", PetalsStackTutorialWeb do
+  pipe_through :browser
+
+  # new example scope
+  scope "/examples" do
+    # new counter example
+    live "/counter", CounterLive
+  end
+end
+```
+
+This will put our Live View at `/examples/counter`
+
+Next ceate the `PetalsStackTutorialWeb.CounterLive` module in file `lib/petals_stack_tutorial_web/live/counter_live.ex`
+
+```elixir
+defmodule PetalsStackTutorialWeb.CounterLive do
+  use PetalsStackTutorialWeb, :live_view
+end
+```
+
+Next we need to implment 3 callbacks
+
+- `mount/3` which is called when the WebSocket is mounted. Used to initial the view.
+- `render/1` renders and returns the HTML.
+- `handle_event/3` handles events emmited from the view.
+
+For mount, we assign the value of "counter" to 0 in the socket.
+
+```elixir
+@impl true
+def mount(_params, _session, socket) do
+  {:ok, assign(socket, counter: 0)}
+end
+```
+
+Next, return the view. For now we'll keep it inline as a string, but we could use a HEEx template.
+
+```elixir
+@impl true
+def render(assigns) do
+  ~H"""
+  <div>
+    <h1>Counter is {@counter}</h1>
+    <button phx-click="inc" phx-debounce="20">+</button>
+    <button phx-click="dec" phx-debounce="20">-</button>
+  </div>
+  """
+end
+```
+
+The `counter` assignment is extracted from `assigns` with the "@" macro. The `phx-click` attribute sets the name of the event that is sent to the server when the button is clicked. The `phx-debounce="20"` attribute setting ensures the events debounce for 20 milliseconds.
+
+Finally, handle the events.
+
+```elixir
+@impl true
+def handle_event("inc", _payload, socket) do
+  {:noreply, update(socket, :counter, fn x -> x + 1 end)}
+end
+
+def handle_event("dec", _payload, socket) do
+  f = fn
+    0 -> 0
+    x -> x - 1
+  end
+
+  {:noreply, update(socket, :counter, f)}
+end
+```
+
+We can lean on Elixir's pattern matching here. `handle_event/3` has a seperate clause for each event, and the decrement event function handles when trying to decrement 0. We use `update/3` function to pass a function and update the assignment, rather than reading the value and updating it.
+
+The result is a view that is declaritive and only changed via state that is stored and changed server side.
+
+## 3: Ash Authentication

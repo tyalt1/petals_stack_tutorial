@@ -18,6 +18,10 @@ defmodule PetalsStackTutorialWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    scope "/examples" do
+      live "/counter", CounterLive
+    end
   end
 
   # Other scopes may use custom stacks.
