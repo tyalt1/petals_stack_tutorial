@@ -128,10 +128,10 @@ mix igniter.install PACKAGE1 PACKAGE2 PACKAGE3
 
 Here are some addtional packages I recommend:
 
-- `ash_authentication`: An extension for the Ash Framework providing turnkey user authentication, including password strategies, OAuth2, and token management.
-- `ash_json_api`: An Ash extension that automatically exposes your resources as a JSON:API-compliant REST interface.
-- `ash_graphql`: An Ash extension that generates Absinthe-powered GraphQL schemas and endpoints directly from your resources.
-- `ash_admin`: An automatically generated administration UI for viewing, filtering, and mutating data across your Ash resources.
-- `ash_ai`: A framework extension that brings LLM capabilities to Ash, supporting prompt-backed actions, vector embeddings, and Model Context Protocol (MCP) integrations.
-- `live_debugger`: A browser-based development tool for inspecting component trees, viewing assigns, and tracing callback executions in Phoenix LiveView applications.
-- `tidewave`: An AI development toolkit by Dashbit that integrates runtime introspection, browser automation, and point-and-click UI tracing directly into Phoenix and Rails web apps.
+- [`ash_authentication`](https://hex.pm/packages/ash_authentication): An extension for the Ash Framework providing turnkey user authentication, including password strategies, OAuth2, and token management.
+- [`ash_json_api`](https://hex.pm/packages/ash_json_api): An Ash extension that automatically exposes your resources as a JSON:API-compliant REST interface.
+- [`ash_graphql`](https://hex.pm/packages/ash_graphql): An Ash extension that generates Absinthe-powered GraphQL schemas and endpoints directly from your resources.
+- [`ash_admin`](https://hex.pm/packages/ash_admin): An automatically generated administration UI for viewing, filtering, and mutating data across your Ash resources.
+- [`ash_ai`](https://hex.pm/packages/ash_ai): A framework extension that brings LLM capabilities to Ash, supporting prompt-backed actions, vector embeddings, and Model Context Protocol (MCP) integrations.
+- [`live_debugger`](https://hex.pm/packages/live_debugger): A browser-based development tool for inspecting component trees, viewing assigns, and tracing callback executions in Phoenix LiveView applications.
+- [`tidewave`](https://hex.pm/packages/tidewave): An AI development toolkit by Dashbit that integrates runtime introspection, browser automation, and point-and-click UI tracing directly into Phoenix.
