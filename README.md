@@ -93,8 +93,8 @@ mix igniter.new petals_stack_tutorial --with phx.new --install ash,ash_phoenix,a
 cd petals_stack_tutorial/
 
 # set elixir versions, this will create a .tool-versions file
-asdf local erlang 26.2.4
-asdf local elixir 1.16.2-otp-26
+asdf set erlang 29.0.2
+asdf set elixir 1.20.2-otp-29
 ```
 
 Run the database
