@@ -72,22 +72,22 @@ asdf plugin add erlang
 asdf plugin add elixir
 
 # install specific version for plugin
-# use `asdf list all` and `asdf latest` to check for newer available versions
-asdf install erlang 26.2.4
-asdf install elixir 1.16.2-otp-26
+# use `asdf list all` or `asdf latest` to check for newer available versions
+asdf install erlang 29.0.5
+asdf install elixir 1.20.3-otp-29
 ```
 
 Create a new Phoenix Project
 ```bash
 # install/update Hex (Elixir package manager, like npm or pip)
-mix local.hex
+mix local.hex --force
 
 # install Phoenix creation scripts
 mix archive.install hex phx_new --force
 mix archive.install hex igniter_new --force
 
 # create a new app
-mix igniter.new petals_stack_tutorial --with phx.new --install ash,ash_phoenix,ash_postgres,live_svelte
+mix igniter.new petals_stack_tutorial --with phx.new --install ash,ash_phoenix,ash_postgres,live_svelte --yes
 
 # go to your new app
 cd petals_stack_tutorial/
@@ -97,7 +97,7 @@ asdf local erlang 26.2.4
 asdf local elixir 1.16.2-otp-26
 ```
 
-Run the server
+Run the database
 ```bash
 # run Postgres via Docker
 docker run -d \
@@ -107,7 +107,10 @@ docker run -d \
   -e POSTGRES_HOST_AUTH_METHOD=trust \
   -p 5432:5432 \
   postgres
+```
 
+Run the server
+```bash
 # install dependencies, run migrations
 mix setup
 
@@ -119,9 +122,16 @@ iex -S mix phx.server
 ```
 
 Optional, install additional packages (see more at https://ash-hq.org/#get-started)
+```bash
+mix igniter.install PACKAGE1 PACKAGE2 PACKAGE3
 ```
-mix igniter.install ash_authentication --auth-strategy password
-mix igniter.install live_debugger
-mix igniter.install ash_admin ash_ai
-mix igniter.install tidewave
-```
+
+Here are some addtional packages I recommend:
+
+- `ash_authentication`: An extension for the Ash Framework providing turnkey user authentication, including password strategies, OAuth2, and token management.
+- `ash_json_api`: An Ash extension that automatically exposes your resources as a JSON:API-compliant REST interface.
+- `ash_graphql`: An Ash extension that generates Absinthe-powered GraphQL schemas and endpoints directly from your resources.
+- `ash_admin`: An automatically generated administration UI for viewing, filtering, and mutating data across your Ash resources.
+- `ash_ai`: A framework extension that brings LLM capabilities to Ash, supporting prompt-backed actions, vector embeddings, and Model Context Protocol (MCP) integrations.
+- `live_debugger`: A browser-based development tool for inspecting component trees, viewing assigns, and tracing callback executions in Phoenix LiveView applications.
+- `tidewave`: An AI development toolkit by Dashbit that integrates runtime introspection, browser automation, and point-and-click UI tracing directly into Phoenix and Rails web apps.
