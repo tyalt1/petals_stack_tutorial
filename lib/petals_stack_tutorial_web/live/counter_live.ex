@@ -9,10 +9,23 @@ defmodule PetalsStackTutorialWeb.CounterLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <div>
-      <h1>Counter is {@counter}</h1>
-      <button phx-click="inc" phx-debounce="20">+</button>
-      <button phx-click="dec" phx-debounce="20">-</button>
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <h1 class="text-3xl font-bold text-gray-800 mb-6">The count is: {@counter}</h1>
+
+      <div class="flex gap-4">
+        <button
+          phx-click="dec"
+          class="px-6 py-2 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-lg shadow transition duration-200"
+        >
+          -
+        </button>
+        <button
+          phx-click="inc"
+          class="px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg shadow transition duration-200"
+        >
+          +
+        </button>
+      </div>
     </div>
     """
   end
