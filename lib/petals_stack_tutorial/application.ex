@@ -10,7 +10,8 @@ defmodule PetalsStackTutorial.Application do
     children = [
       PetalsStackTutorialWeb.Telemetry,
       PetalsStackTutorial.Repo,
-      {DNSCluster, query: Application.get_env(:petals_stack_tutorial, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:petals_stack_tutorial, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: PetalsStackTutorial.PubSub},
       # Start a worker by calling: PetalsStackTutorial.Worker.start_link(arg)
       # {PetalsStackTutorial.Worker, arg},

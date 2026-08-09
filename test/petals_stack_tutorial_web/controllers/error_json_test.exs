@@ -2,7 +2,9 @@ defmodule PetalsStackTutorialWeb.ErrorJSONTest do
   use PetalsStackTutorialWeb.ConnCase, async: true
 
   test "renders 404" do
-    assert PetalsStackTutorialWeb.ErrorJSON.render("404.json", %{}) == %{errors: %{detail: "Not Found"}}
+    assert PetalsStackTutorialWeb.ErrorJSON.render("404.json", %{}) == %{
+             errors: %{detail: "Not Found"}
+           }
   end
 
   test "renders 500" do
